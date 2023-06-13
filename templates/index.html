@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <title>Index - Taksha S Thosani</title>
+</head>
+<body>
+<h5><a href="/">Home</a></h5>
+<center><h3>CSE 6332 - Quiz-0</h3></center>
+
+
+<h3>Q10.Showing name , Id and Image ( Text in large fonts) </h3>
+<center><h10><font size="15">Taksha S Thosani - 86312</font></h10></center><br/>
+<center><img src="{{ url_for('static', filename='md.jpg') }}" alt="md.jpeg"></center><br/>
+
+</br>
+<p align ="left"></p>
+<h3>Q11. Name, seats and picture through row no.</h3>
+<form action="/rown" method="post">
+    Enter rown. to display the details :- <input type="text" name="rown"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/>
+</p>
+
+<h3>Q12. Name,Descript & Picture From Room Number Range.</h3>
+<form action="/rnrange" method="post">
+    Enter row no 1. :- <input type="text" name="rn1"><br/>
+    Enter row no 2. :- <input type="text" name="rn2"><br/>
+    Or Enter A seat Letter :- <input type="text" name="seatl"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/><br/>
+
+<h3>Q13 part1. Update description through name .</h3>
+<form action="/edit" method="post">
+    Enter name. :- <input type="text" name="name"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/>
+
+<h4>q13 part2. Remove user By Name</h4>
+<form action="/remove" method="post">
+    Enter name. :- <input type="text" name="name"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/>
+
+<h4>q13 part3. Add user By Name</h4>
+<form action="/adduser" method="post">
+    Enter name. :- <input type="text" name="name"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/>
+
+
+</body>
+</html>

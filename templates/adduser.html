@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User - Taksha Sachin Thosani</title>
+</head>
+<body>
+    <h5><a href="/">Home</a></h5>
+
+    <center><h10><font size="15">Taksha S Thosani - 86312</font></h10></center><br/>
+    <center><h4>Add User</h4></center>
+
+    <form action="/adduserbn" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter Name here.." required><br>
+
+        <label for="row">Row:</label>
+        <input type="text" id="row" name="row" placeholder="Enter Row number here.." required><br>
+
+        <label for="seat">Seat:</label>
+        <input type="text" id="seat" name="seat" placeholder="Enter Seat number here.." required><br>
+
+        <label for="pic">Picture:</label>
+        <input type="file" id="pic" name="pic" accept=".jpg, .jpeg, .png" required><br>
+
+        <label for="notes">Notes:</label>
+        <textarea id="notes" name="notes" placeholder="Enter Notes here.." required></textarea><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

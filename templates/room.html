@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <title>Room Details - Taksha S Thosani</title>
+</head>
+<body>
+<h5><a href="/">Home</a></h5>
+<center><h10><font size="15">Taksha S Thosani - 86312</font></h10></center><br/>
+
+<div>
+
+  {% if message %}
+    <div>
+      <h4>{{ name }}</h4>
+      <h4>{{ description }}</h4>
+    </div>
+  {% endif %}
+
+  {% if error %}
+    {{ error }}
+  {% endif %}
+
+</div>
+
+</body>
+</html>

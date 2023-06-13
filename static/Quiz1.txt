@@ -1,0 +1,274 @@
+
+Name: Taksha Sachin Thosani
+Last 4 digits ID: 6312
+
+CSE 6332, Cloud Computing					
+
+
+Quiz Q1, Summer 2023   (c) DL, UTA, 2023
+
+INFORMATIONAL
+
+
+  C&P means cut and paste only those relevant lines from your program(s) into this quiz.
+
+
+ 1.  I understand that I am on my honor during this quiz, I will not collaborate, use 
+     non-allowed sources, and I will not discuss or share this quiz with anyone for the next 
+     12 hours.
+     You MAY: use Google to search, use previous source code, 
+     YOU MAY NOT use:
+     Email, Facebook, Hangouts, IM, chats, Skype or ANY other human connection.
+
+     This is a timed test. Late tests will have points deducted for being late.
+     Very late tests will not be graded.
+
+     When you are complete, with any part, please send the link, raise your hand, so we may visually inspect that part.
+     Please demo each part once, initially, if we have more time we will review again, if requested.
+     The majority of credit will be for applications deployed on the cloud.
+
+     The second part of the test, you should electronically submit, you will need to copy and paste 
+     only those lines of code to implement that part of the test, usually a few (two to eight) lines of code. 
+     Place it immediately after the question.
+
+     Submit this Quiz (renamed) with code cut and pasted, ONLY text. DO NOT submit zips, binaries, libraries,
+     or anything other than text.
+
+     When any parts(questions) are complete complete, submit this test, you may make multiple submissions.
+
+     If you have computer, or other, problems, please raise your hand immediately.
+
+     If you understand and agree, please initial here:
+     _________________
+
+ 2. Get files from this same folder.
+   
+ 3. Name your program/submission with your name and last digits of your ID.
+
+ 4. Using the cloud services provider, all functionality possible should be implemented on that provider.
+    (Of course, displaying web pages through a browser and the user interface is "local")
+    The cloud provider is MS Azure.
+
+ 5. Upload all data files (*jpg and *csv, not this quiz) to the cloud service.
+  
+QUIZ QUESTIONS
+
+Show and submit code, when each part is complete, raise your hand and then show us:
+
+ 10. Show a web page and interface (which resides on the cloud provider) with your name as it appears on your ID card 
+     as well as the last 5 digits of your student ID in large font at the top of every web page dispayed (for this quiz)
+     On the first page show either the picture md.jpg or your picture below your name and ID number.
+	
+	python code:@app.route("/", methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+	html code :<h3>Q10.Showing name , Id and Image ( Text in large fonts) </h3>
+<center><h10><font size="15">Taksha S Thosani - 86312</font></h10></center><br/>
+<center><img src="{{ url_for('static', filename='md.jpg') }}" alt="md.jpeg"></center><br/>
+
+ 11. Through a web interface (page), allow user to give a single row number and you will show the names, seats and   
+     picture of anyone on that row on a web page.
+	
+		python code:@app.route("/rown", methods=['GET', 'POST'])
+def rown():
+    if request.method == 'POST':
+        rown = request.form['rown']
+        csv_reader = csv.DictReader(open('static/q1c.csv'))
+        matching_records = []
+        for r in csv_reader:
+            if rown == r['row']:
+                matching_records.append({
+                    'image_path': '../static/' + r['pic'],
+                    'name': r['name'],
+                    'seatno': r['seat']
+                })
+
+        if matching_records:
+            return render_template('rown.html', records=matching_records, message="found")
+        else:
+            return render_template('rown.html', error="Picture and Name did not find for Room!")
+		html code :<h3>Q11. Name, seats and picture through row no.</h3>
+<form action="/rown" method="post">
+    Enter rown. to display the details :- <input type="text" name="rown"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/>
+
+ 12. Through a web interface (page), allow user to give a range of rows or a single seat letter (or both), and you show 
+     the corresponding matching names, seats, notes and pictures (or show "no information or picture available"). 
+     (If both given, show only exact matches, if there are any. Some examples are: "Rows 30 through 40" - two matching or 
+      "Seat d" - 2 matching, or "rows 20 through 40, seat c" - no matching.)
+
+	python code:@app.route("/rnrange", methods=['GET', 'POST'])
+def rownorange():
+    if request.method == 'POST':
+        rn1 = request.form['rn1']
+        rn2 = request.form['rn2']
+        seatlet = request.form['seatl']
+        csv_reader = csv.DictReader(open('static/q1c.csv'))
+        matching_records = []
+        for r in csv_reader:
+            
+            if rn1 !='' and rn2 !='':
+                if seatlet!='':
+                    if r['row'] >= rn1 and r['row'] <= rn2 or r['seat'] == seatlet:
+                        matching_records.append({
+                            'image_path': '../static/' + r['pic'],
+                            'name': r['name'],
+                            'seatno': r['seat'],
+                            'notesdesc' : r['notes']
+                        })
+                elif r['row'] >= rn1 and r['row'] <= rn2:
+                     matching_records.append({
+                            'image_path': '../static/' + r['pic'],
+                            'name': r['name'],
+                            'seatno': r['seat'],
+                            'notesdesc' : r['notes']
+                        })   
+
+            elif r['seat'] == seatlet :
+                matching_records.append({
+                    'image_path': '../static/' + r['pic'],
+                    'name': r['name'],
+                    'seatno': r['seat'],
+                    'notesdesc' : r['notes']
+                })   
+
+        if matching_records:
+            return render_template('rnrange.html', records=matching_records, message="found")
+        else:
+            return render_template('rnrange.html', error="Picture and Name did not find for the given Room no!")
+        
+	html code : <div>
+
+  {% if message %}
+    {% for record in records %}
+      <div>
+        <h4>{{ record.name }}</h4>
+        <h4>{{ record.seatno }}</h4>
+        <h4>{{ record.notesdesc }}</h4>
+        <img src="{{ record.image_path }}" alt="Preview" width="500" height="600">
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if error %}
+    {{ error }}
+  {% endif %}
+
+</div>
+
+
+ 13. Allow a user to add a new user, delete a user, or modify any attribute of an existing user (by name) 
+		
+	python code:
+			@app.route("/edit", methods=['GET', 'POST'])
+def edit_details_by_name():
+    return render_template('edit_details_by_name.html')
+
+
+@app.route("/editdetails", methods=['GET', 'POST'])
+def editdetails_form():
+    if request.method == 'POST':
+        name = request.form['name']
+        csv_reader = csv.DictReader(open('static/q1c.csv'))
+        temp_name = ''
+        for r in csv_reader:
+            if name == r['name']:
+                temp_name = name
+        if temp_name != '':
+            return render_template('display_details_after_edit_by_name.html', name=temp_name)
+        else:
+            return render_template('display_details_after_edit_by_name.html', error="No Record Found!")
+
+
+@app.route("/updatedetails", methods=['GET', 'POST'])
+def display_updated_details():
+    if request.method == 'POST':
+        name = request.form['name']
+        row = request.form['row']
+        seat = request.form['seat']
+        pic = request.files['pic']  
+        notes = request.form['notes']
+        cnt = 0
+
+        temp = [name, row, seat,pic.filename,notes]  
+        line = []
+
+        with open('static/q1c.csv', 'r') as f1:
+            csv_reader = csv.reader(f1)
+            for r in csv_reader:
+                if name == r[0]:
+                    line.append(temp)
+                else:
+                    line.append(r)
+                cnt += 1
+
+        with open('static/q1c.csv', 'w') as csv_write:  
+            csv_writer = csv.writer(csv_write)
+            csv_writer.writerows(line)
+
+        if cnt != 0:
+            return render_template('display_details_after_edit_by_name.html', update="One Record Updated Successfully.")
+        else:
+            return render_template('display_details_after_edit_by_name.html', error="No Record Found!")
+        
+@app.route("/remove", methods=['GET', 'POST'])
+def remove_details_by_name():
+    return render_template('remove_by_name.html')
+
+
+@app.route("/removedetails", methods=['GET', 'POST'])
+def remove_details_message_display():
+    if request.method == 'POST':
+        name = request.form['name']
+        cnt = 0
+        line = list()
+        with open('static/q1c.csv', 'r') as f1:
+            csv_reader = csv.reader(f1)
+            for row in csv_reader:
+                line.append(row)
+                if name == row[0]:
+                    line.remove(row)
+                    cnt += 1
+
+        csv_write = open('static/q1c.csv', 'w')
+        for i in line:
+            for j in i:
+                csv_write.write(j + ',')
+            csv_write.write('\n')
+
+        if cnt:
+            return render_template('removedetails_validation.html', message="Record removed successfully.")
+        else:
+            return render_template('removedetails_validation.html', error="Record not found.")
+        
+@app.route("/adduser", methods=['GET', 'POST'])
+def add_details_by_name():
+    return render_template('adduserbyname.html')
+
+@app.route("/adduserbn", methods=['GET', 'POST'])
+def adduserbn():
+    if request.method == 'POST':
+        name = request.form['name']
+        row = request.form['row']
+        seat = request.form['seat']
+        pic = request.files['pic']
+        notes = request.form['notes']
+
+        
+        with open('static/q1c.csv', 'a') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerow([name, row, seat, pic.filename, notes])
+
+        return render_template('adduser.html', message="User added successfully.")
+    else:
+        return render_template('adduser.html')
+	html code :
+
+
+ 14. Show us, in a link, the application running and we will try it out. Only for parts 10, 11, 12, 13. 
+
+ 15. When complete, return (send) this quiz
+     If you finish early, send this immediately, otherwise send between
+     the end of class and no more than 1 minute after that.
+

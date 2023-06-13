@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Details Edit Validation - Taksha</title>
+</head>
+<body>
+    <h5><a href="/">Home</a></h5>
+<center>
+    <h10><font size="15">Taksha S Thosani - 86312</font></h10>
+</center>
+
+<div>
+    {%if name%}
+    <form action="/updatedetails" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" value="{{ name }}"><br>
+        <label for="row">row:</label>
+        <input type="text" name="row" id="row"><br>
+        <label for="seat">Seat:</label>
+        <input type="text" name="seat" id="seat"><br>
+        <label for="picture">Picture:</label>
+        <input type="file" name="pic" id="pic"><br>
+        <label for="notes">Notes:</label>
+        <input type="text" name="notes" id="notes"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    {% if error %}
+        {{ error }}
+    {% endif %}
+    {% if update %}
+        {{ update }}
+    {% endif %}
+</div>
+
+
+</body>
+</html>

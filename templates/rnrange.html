@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <title>Room Number range - Taksha S Thosani</title>
+</head>
+<body>
+<h5><a href="/">Home</a></h5>
+<center><h10><font size="15">Taksha S Thosani - 86312</font></h10></center><br/>
+
+<div>
+
+  {% if message %}
+    {% for record in records %}
+      <div>
+        <h4>{{ record.name }}</h4>
+        <h4>{{ record.seatno }}</h4>
+        <h4>{{ record.notesdesc }}</h4>
+        <img src="{{ record.image_path }}" alt="Preview" width="500" height="600">
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if error %}
+    {{ error }}
+  {% endif %}
+
+</div>
+
+</body>
+</html>
